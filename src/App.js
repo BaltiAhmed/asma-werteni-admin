@@ -15,6 +15,10 @@ import ListeTraitement from "./pages/traitement/liste-traitement";
 import AjoutTraitement from "./pages/traitement/ajout-traitement";
 import UpdateTraitement from "./pages/traitement/update-traitement";
 import UpdateMaladie from "./pages/maladie/update-maladie";
+import ListeIngenieur from "./pages/ingenieur/list-ingenieur";
+import AjoutIngenieur from "./pages/ingenieur/ajout-ingenieur";
+import UpdateIngenieur from "./pages/ingenieur/update-ingenieur";
+import ListeAgriculteur from "./pages/agriculteur.js/liste-agriculteur";
 
 
 function App() {
@@ -34,6 +38,10 @@ function App() {
         <Route path="/liste-traitement/:id"  component={ListeTraitement} />
         <Route path="/ajout-traitement/:id"  component={AjoutTraitement} />
         <Route path="/update-traitement/:id"  component={UpdateTraitement} />
+        <Route path="/liste-ingenieur"  component={ListeIngenieur} />
+        <Route path="/ajout-ingenieur"  component={AjoutIngenieur} />
+        <Route path="/update-ingenieur/:id"  component={UpdateIngenieur} />
+        <Route path="/liste-agriculteur"  component={ListeAgriculteur} />
       </React.Fragment>
     );
   } else {

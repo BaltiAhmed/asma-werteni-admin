@@ -15,37 +15,49 @@ const Home = () => {
       <Container>
         <Row>
           <Col>
-            {" "}
-            <Card border="success" style={{ width: "16rem" }}>
-              <Card.Header>Gestion Des Ingénieurs</Card.Header>
-              <Card.Body>
-                <Col xs={50} md={5}>
-                  <Image
-                    src={ingénieur}
-                    style={{ width: "10rem", height: "9rem" }}
-                    rounded
-                  />
-                </Col>
-              </Card.Body>
-            </Card>
+            <Link
+              to="/liste-ingenieur"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <Card border="success" style={{ width: "16rem" }}>
+                <Card.Header>Gestion Des Ingénieurs</Card.Header>
+                <Card.Body>
+                  <Col xs={50} md={5}>
+                    <Image
+                      src={ingénieur}
+                      style={{ width: "10rem", height: "9rem" }}
+                      rounded
+                    />
+                  </Col>
+                </Card.Body>
+              </Card>
+            </Link>{" "}
           </Col>
           <Col>
-            <Card border="primary" style={{ width: "16rem" }}>
-              <Card.Header>Gestion Des Agriculteurs</Card.Header>
-              <Card.Body>
-                <Col xs={50} md={5}>
-                  <Image
-                    src={agriculteur}
-                    style={{ width: "10rem", height: "9rem" }}
-                    rounded
-                  />
-                </Col>
-              </Card.Body>
-            </Card>
+            <Link
+              to="liste-agriculteur"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <Card border="primary" style={{ width: "16rem" }}>
+                <Card.Header>Gestion Des Agriculteurs</Card.Header>
+                <Card.Body>
+                  <Col xs={50} md={5}>
+                    <Image
+                      src={agriculteur}
+                      style={{ width: "10rem", height: "9rem" }}
+                      rounded
+                    />
+                  </Col>
+                </Card.Body>
+              </Card>
+            </Link>
           </Col>
           <Col>
-            <Link to="/plante" >
-              <Card border="warning" style={{ width: "16rem" , textDecoration:'none'}} >
+            <Link to="/plante" style={{ textDecoration: "none", color: "black" }}>
+              <Card
+                border="warning"
+                style={{ width: "16rem", textDecoration: "none" }}
+              >
                 <Card.Header>Gestion Des Plantes</Card.Header>
                 <Card.Body>
                   <Col xs={50} md={5}>
