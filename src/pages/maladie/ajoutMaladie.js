@@ -80,7 +80,7 @@ const AjoutMaladie = () => {
                 <Form.Label>Nom</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="tapez votre nom"
+                  placeholder="nom"
                   name="nom"
                   onChange={onchange}
                   required
