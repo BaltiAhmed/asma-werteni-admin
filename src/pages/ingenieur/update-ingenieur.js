@@ -10,9 +10,33 @@ import {
 } from "react-bootstrap";
 import ErrorModel from "../../models/error-models";
 import SuccessModel from "../../models/success-models";
-import {useParams} from 'react-router-dom'
+import { useParams } from "react-router-dom";
 
 const UpdateIngenieur = () => {
+  useEffect(() => {
+    const sendRequest = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/ingenieur/${id}`
+        );
+
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+
+        setNom(responseData.ingenieur.nom);
+        setPrenom(responseData.ingenieur.prenom);
+        setEmail(responseData.ingenieur.email);
+        setTel(responseData.ingenieur.telephone);
+      } catch (err) {
+        seterror(err.message);
+      }
+    };
+
+    sendRequest();
+  }, []);
+
   const [error, seterror] = useState(null);
   const [success, setsuccess] = useState(null);
   const [nom, setNom] = useState(null);
@@ -20,12 +44,11 @@ const UpdateIngenieur = () => {
   const [email, setEmail] = useState(null);
   const [tel, setTel] = useState(null);
 
-
   const onchange = (e) => {
     if (e.target.name === "nom") {
       setNom(e.target.value);
     } else if (e.target.name === "prenom") {
-        setPrenom(e.target.value);
+      setPrenom(e.target.value);
     } else if (e.target.name === "email") {
       setEmail(e.target.value);
     } else {
@@ -38,8 +61,8 @@ const UpdateIngenieur = () => {
   const submit = async (e) => {
     e.preventDefault();
 
-    console.log(nom)
-   
+    console.log(nom);
+
     try {
       let response = await fetch(`http://localhost:5000/api/ingenieur/${id}`, {
         method: "PATCH",
@@ -48,17 +71,16 @@ const UpdateIngenieur = () => {
         },
         body: JSON.stringify({
           nom: nom,
-          prenom:prenom,
-          email:email,
-          telephone:tel
-          
+          prenom: prenom,
+          email: email,
+          telephone: tel,
         }),
       });
       let responsedata = await response.json();
       if (!response.ok) {
         throw new Error(responsedata.message);
       }
-      setsuccess("Ingénieur modifiée.")
+      setsuccess("Ingénieur modifiée.");
     } catch (err) {
       console.log(err);
       seterror(err.message || "probleme!!");
@@ -77,6 +99,7 @@ const UpdateIngenieur = () => {
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Nom</Form.Label>
                 <Form.Control
+                  value={nom}
                   type="text"
                   placeholder="tapez le nom"
                   name="nom"
@@ -88,6 +111,7 @@ const UpdateIngenieur = () => {
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Prenom</Form.Label>
                 <Form.Control
+                  value={prenom}
                   type="text"
                   placeholder="tapez le prenom"
                   name="prenom"
@@ -99,6 +123,7 @@ const UpdateIngenieur = () => {
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
+                  value={email}
                   type="email"
                   placeholder="tapez le nom"
                   name="email"
@@ -110,8 +135,9 @@ const UpdateIngenieur = () => {
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Nom</Form.Label>
                 <Form.Control
+                  value={tel}
                   type="number"
-                  maxLength = {8}
+                  maxLength={8}
                   placeholder="tapez le numéro de téléphone"
                   name="tel"
                   onChange={onchange}

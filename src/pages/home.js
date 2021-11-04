@@ -53,7 +53,10 @@ const Home = () => {
             </Link>
           </Col>
           <Col>
-            <Link to="/plante" style={{ textDecoration: "none", color: "black" }}>
+            <Link
+              to="/plante"
+              style={{ textDecoration: "none", color: "black" }}
+            >
               <Card
                 border="warning"
                 style={{ width: "16rem", textDecoration: "none" }}
@@ -120,21 +123,26 @@ const Home = () => {
         <Row>
           <Col>
             {" "}
-            <Card
-              border="success"
-              style={{ width: "16rem", marginTop: "5%", marginLeft: "30%" }}
+            <Link
+              to="/reclamation"
+              style={{ textDecoration: "none", color: "black" }}
             >
-              <Card.Header>Gestion Des Réclamations</Card.Header>
-              <Card.Body>
-                <Col xs={50} md={5}>
-                  <Image
-                    src={reclamation}
-                    style={{ width: "10rem", height: "9rem" }}
-                    rounded
-                  />
-                </Col>
-              </Card.Body>
-            </Card>
+              <Card
+                border="success"
+                style={{ width: "16rem", marginTop: "5%", marginLeft: "30%" }}
+              >
+                <Card.Header>Gestion Des Réclamations</Card.Header>
+                <Card.Body>
+                  <Col xs={50} md={5}>
+                    <Image
+                      src={reclamation}
+                      style={{ width: "10rem", height: "9rem" }}
+                      rounded
+                    />
+                  </Col>
+                </Card.Body>
+              </Card>
+            </Link>
           </Col>
           <Col>
             <Card border="primary" style={{ width: "16rem", marginTop: "5%" }}>

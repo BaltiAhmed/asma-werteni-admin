@@ -11,7 +11,7 @@ import {
 import ErrorModel from "../models/error-models";
 import SuccessModel from "../models/success-models";
 import axios from "axios";
-import {useParams} from 'react-router-dom'
+import { useParams } from "react-router-dom";
 
 const UpdatePlante = () => {
   const [File, setFile] = useState();
@@ -67,7 +67,7 @@ const UpdatePlante = () => {
     }
   };
 
-  const id = useParams().id
+  const id = useParams().id;
 
   const ajoutPlante = async (e) => {
     e.preventDefault();
@@ -82,10 +82,7 @@ const UpdatePlante = () => {
       formData.append("type", type);
       formData.append("description", description);
 
-      await axios.patch(
-        `http://localhost:5000/api/plante/${id}`,
-        formData
-      );
+      await axios.patch(`http://localhost:5000/api/plante/${id}`, formData);
 
       setsuccess("Plante bien modifié");
     } catch (err) {
@@ -93,6 +90,28 @@ const UpdatePlante = () => {
       seterror(err.message || "probleme!!");
     }
   };
+
+  useEffect(() => {
+    const sendRequest = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/plante/${id}`);
+
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+
+        setType(responseData.plante.type);
+        setNom(responseData.plante.nom);
+        setDescription(responseData.plante.description);
+        setPreviewUrl("http://localhost:5000/" + responseData.plante.image);
+      } catch (err) {
+        seterror(err.message);
+      }
+    };
+
+    sendRequest();
+  }, []);
 
   return (
     <div>
@@ -139,9 +158,10 @@ const UpdatePlante = () => {
                 {!isValid && <p></p>}
               </div>
 
-              <Form.Group  controlId="formGridEmail">
+              <Form.Group controlId="formGridEmail">
                 <Form.Label>Nom</Form.Label>
                 <Form.Control
+                  value={nom}
                   type="text"
                   placeholder="Nom de la plante"
                   name="nom"
@@ -150,9 +170,10 @@ const UpdatePlante = () => {
                 />
               </Form.Group>
 
-              <Form.Group  controlId="formGridName">
+              <Form.Group controlId="formGridName">
                 <Form.Label>Type</Form.Label>
                 <Form.Control
+                  value={type}
                   type="text"
                   placeholder="Type "
                   name="type"
@@ -164,6 +185,7 @@ const UpdatePlante = () => {
               <Form.Group controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Description </Form.Label>
                 <Form.Control
+                  value={description}
                   as="textarea"
                   rows={5}
                   name="description"

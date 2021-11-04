@@ -11,7 +11,7 @@ import {
 import ErrorModel from "../../models/error-models";
 import SuccessModel from "../../models/success-models";
 import axios from "axios";
-import {useParams} from 'react-router-dom'
+import { useParams } from "react-router-dom";
 
 const UpdateTraitement = () => {
   const [File, setFile] = useState();
@@ -64,7 +64,7 @@ const UpdateTraitement = () => {
     }
   };
 
-  const id = useParams().id
+  const id = useParams().id;
 
   const ajout = async (e) => {
     e.preventDefault();
@@ -76,10 +76,7 @@ const UpdateTraitement = () => {
       formData.append("prix", prix);
       formData.append("description", description);
 
-      await axios.patch(
-        `http://localhost:5000/api/traitement/${id}`,
-        formData
-      );
+      await axios.patch(`http://localhost:5000/api/traitement/${id}`, formData);
 
       setsuccess("traitement bien modifier");
     } catch (err) {
@@ -87,6 +84,29 @@ const UpdateTraitement = () => {
       seterror(err.message || "probleme!!");
     }
   };
+
+  useEffect(() => {
+    const sendRequest = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/traitement/${id}`);
+
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+
+        setPrix(responseData.traitement.prix);
+        setDescription(responseData.traitement.description);
+        setPreviewUrl("http://localhost:5000/" + responseData.traitement.image);
+      } catch (err) {
+        seterror(err.message);
+      }
+    };
+
+    sendRequest();
+  }, []);
+
+  
 
   return (
     <div>
@@ -136,6 +156,7 @@ const UpdateTraitement = () => {
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Prix</Form.Label>
                 <Form.Control
+                  value={prix}
                   type="number"
                   placeholder="Prix"
                   name="prix"
@@ -147,6 +168,7 @@ const UpdateTraitement = () => {
               <Form.Group controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Description </Form.Label>
                 <Form.Control
+                  value={description}
                   as="textarea"
                   rows={5}
                   name="description"

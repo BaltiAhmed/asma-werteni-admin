@@ -13,6 +13,32 @@ import SuccessModel from "../../models/success-models";
 import {useParams} from 'react-router-dom'
 
 const UpdateMaladie = () => {
+
+  useEffect(() => {
+    const sendRequest = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/maladie/${id}`
+        );
+
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+
+        setNom(responseData.maladie.nom);
+        setDescription(responseData.maladie.description);
+        setCause(responseData.maladie.cause);
+        setPrevension(responseData.maladie.prevension);
+      } catch (err) {
+        seterror(err.message);
+      }
+    };
+
+    sendRequest();
+  }, []);
+
+
   const [error, seterror] = useState(null);
   const [success, setsuccess] = useState(null);
   const [nom, setNom] = useState(null);
@@ -73,6 +99,7 @@ const UpdateMaladie = () => {
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Nom</Form.Label>
                 <Form.Control
+                value={nom}
                   type="text"
                   placeholder="tapez votre nom"
                   name="nom"
@@ -84,6 +111,7 @@ const UpdateMaladie = () => {
               <Form.Group controlId="formGridName">
                 <Form.Label>Cause</Form.Label>
                 <Form.Control
+                value={cause}
                   as="select"
                   name="cause"
                   onChange={onchange}
@@ -98,6 +126,7 @@ const UpdateMaladie = () => {
               <Form.Group controlId="formGridName">
                 <Form.Label>Prevension</Form.Label>
                 <Form.Control
+                value={prevension}
                   as="textarea"
                   rows={5}
                   name="prevension"
@@ -109,6 +138,7 @@ const UpdateMaladie = () => {
               <Form.Group controlId="formGridName">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
+                value={description}
                   as="textarea"
                   rows={5}
                   name="description"
